@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Services} from './services/services';
-import {User} from './services/User';
+import {Users} from './services/users';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,7 @@ export class AppComponent {
 
   names = ['Mostasim', 'Muntasir', 'Maruf', 'Hasan'];
   isBtnEnable = true;
+  isLoading = false;
 
   constructor(private services: Services) {
   }
@@ -25,14 +26,29 @@ export class AppComponent {
     this.name = '';
     this.email = '';
     console.log(this.names);
+  }
+
+  onClear(): void{
+    this.names = [];
+  }
+
+  onFetch(): void {
+    this.isLoading = true;
     this.services.getUser().subscribe(res => {
-
-      console.log(res);
-
-      console.log('User ' + res.body);
-
+      this.isLoading = false;
+      console.log(res.body);
+      const users: Users = res.body;
+      users.forEach(value => {
+        this.names.push(value.name);
+        console.log(value);
+      });
     }, error => {
+      this.isLoading = false;
       console.log(error);
     });
+  }
+
+  remove(i: number): void {
+    this.names.splice(i, 1);
   }
 }

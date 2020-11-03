@@ -1,0 +1,9 @@
+.col-info{
+}
+.col-info:hover>.popoverIcon {
+  background: bisque;
+}
+
+.popoverIcon {
+
+}

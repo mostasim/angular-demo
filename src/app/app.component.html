@@ -1,36 +1,35 @@
-
 <app-header></app-header>
 <div class="card-container mt-xl-5" role="main">
-<h2>Welcome to Angular</h2>
+  <h2>Welcome to Angular</h2>
   <div>
     <h2>{{date}}</h2>
     <h2>{{date | date :'short'}}</h2>
   </div>
   <div class="card-body">
     <form class="card p-5 input-group align-content-center" #form="ngForm" ngForm='loginForm' (ngSubmit)="onSubmit()">
-     <span class="alert-danger" *ngIf="form.invalid && form.touched && form.dirty">Name is required</span>
+      <span class="alert-danger" *ngIf="form.invalid && form.touched && form.dirty">Name is required</span>
       <label class="col-form-label">
-        <input  type='text' [(ngModel)]="name" name="name" required>
+        <input type='text' [(ngModel)]="name" name="name" required>
       </label>
       <label class="col-form-label">
-        <input type='text' [(ngModel)]="email" name="email" >
+        <input type='text' [(ngModel)]="email" name="email">
       </label>
       <br>
-      <button mat-raised-button color="primary" [disabled]="name.length>0?false:true">Login</button>
-      <span *ngIf="form.valid">{{form.value | json}}</span>
+      <button mat-raised-button color="primary" [disabled]="name.length<=0">Login</button>
     </form>
-    <mat-card class="m-5">
-      <mat-card-content>
-        <div>
-          Hello
-        </div>
+    <mat-card class="m-2 p-2">
+      <mat-card-title class="text-center">Names</mat-card-title>
+      <mat-progress-bar [hidden]="!isLoading" mode="query"></mat-progress-bar>
+      <span *ngIf="names.length==0" class="p-2 text-primary">Empty Name list please add first.</span>
+      <mat-card-content class="text-primary border-bottom m-2 p-2 bg-light col-info "
+                        *ngFor="let n of names;let i=index" (click)="remove(i)">
+        <span class="popoverIcon">{{'#' + (i + 1) + ' ' + n}}</span>
       </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="names.length>0" class="m-2" mat-raised-button color="accent" (click)="onClear()">Clear</button>
+        <button class="m-2" mat-raised-button color="accent" (click)="onFetch()">Fetch List</button>
+      </mat-card-actions>
     </mat-card>
-    <div class="card mt-2 p-2">
-      <div class="text-primary border-bottom p-1" *ngFor="let n of names">
-        <span>{{n}}</span>
-      </div>
-    </div>
   </div>
 </div>
 <router-outlet></router-outlet>
