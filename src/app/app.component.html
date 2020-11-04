@@ -1,6 +1,5 @@
 <app-header></app-header>
 <div class="card-container mt-xl-5" role="main">
-  <h2>Welcome to Angular</h2>
   <div>
     <h2>{{date}}</h2>
     <h2>{{date | date :'short'}}</h2>
@@ -19,8 +18,8 @@
     </form>
     <mat-card class="m-2 p-2">
       <mat-card-title class="text-center">Names</mat-card-title>
-      <mat-progress-bar [hidden]="!isLoading" mode="query"></mat-progress-bar>
-      <span *ngIf="names.length==0" class="p-2 text-primary">Empty Name list please add first.</span>
+      <mat-progress-bar [hidden]="!isLoading" mode="query" class="mb-3"></mat-progress-bar>
+      <span *ngIf="names.length==0" class="p-2 text-primary h6">Empty Name list please add first.</span>
       <mat-card-content class="text-primary border-bottom m-2 p-2 bg-light col-info "
                         *ngFor="let n of names;let i=index" (click)="remove(i)">
         <span class="popoverIcon">{{'#' + (i + 1) + ' ' + n}}</span>
